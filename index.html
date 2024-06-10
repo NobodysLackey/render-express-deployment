@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" href="./images/check.png" as="check" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <script defer src="./script.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Express Render.com Deployment</title>
+  </head>
+
+  <body>
+    <div style="display: none">
+      <img id="preload-check" src="./images/check.png" alt="check" />
+      <img id="preload-copy" src="./images/copy.png" alt="copy" />
+    </div>
+    <main>
+      <center>
+        <img src="./images/banner.png" alt="banner" class="banner" />
+
+        <p>
+          This website will walk you through the steps to deploy a
+          <a href="https://nodejs.org/" target="_blank">Node</a>
+          <a href="https://expressjs.com/" target="_blank">Express</a> app with
+          <a href="https://render.com/" target="_blank">Render.com</a>. We will walk
+          through all of the necessary steps from start to finish.
+        </p>
+
+        <hr />
+      </center>
+
+      <h2>Objectives</h2>
+      <ul>
+        <li>
+          Learn how to do a one-time <a href="#fly-install">install</a> and
+          configuration of the Fly.io CLI on your machine
+        </li>
+        <li>Learn how to choose a <a href="#fly-domain">domain</a></li>
+        <li>Set up Fly.io <a href="#fly-env">environment</a> variables</li>
+        <li><a href="#fly-deploy">Deploy</a></li>
+      </ul>
+
+      <h2>Why deploy with Fly.io?</h2>
+      <p>
+        Fly.io is one of the easiest to use deployment hosts out there. In
+        addition, it's one of the few that will allow you to deploy an Express
+        back-end server for free (we'll still need to provide a
+        <a href="https://fly.io/docs/about/pricing/">credit card</a>).
+      </p>
+
+      <p>
+        The platform has been around since 2017 and is great for hosting full
+        stack apps. It takes less than 10 minutes to get an app up and deployed,
+        and it's extremely user friendly!
+      </p>
+
+      <h2>Sign Up</h2>
+      <p>
+        <b><em>If you have never signed up with Fly.io before...</em></b>
+      </p>
+      <p>
+        To start, you'll need to head over to Fly.io and
+        <a href="https://fly.io/app/sign-up">sign up</a> for an account. You
+        will be prompted to enter credit card information, but will not be
+        charged unless our website usage surpasses
+        <a href="https://fly.io/docs/about/pricing/#free-allowances"
+          >certain thresholds</a
+        >.
+      </p>
+
+      <h2 id="fly-install">Install the Fly.io CLI Tool</h2>
+
+      <p>In any directory in your terminal, run the following command:</p>
+
+      <div class="shell shadow" id="install">
+        <div class="code">
+          <p>$</p>
+          <code>curl -L https://fly.io/install.sh | sh</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <p>
+        After installing the CLI, you should see an output that recommends
+        adding two lines to your .zshrc file. They will look similar to this:
+      </p>
+
+      <div class="shell shadow" id="zsh">
+        <div class="code" id="env-block">
+          <code>export FLYCTL_INSTALL="/Users/&lt;your_username&gt;/.fly"</code>
+          <code>export PATH="$FLYCTL_INSTALL/bin:$PATH"</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <p>
+        Copy these lines and be sure to replace
+        <b>&lt;your_username&gt;</b> with your actual Fly.io
+        <a href="https://fly.io/user/settings">username</a>.
+      </p>
+
+      <p>
+        We'll need to paste these two commands at the bottom of our
+        <b>zsh</b> settings file. Run the following command to open it up in VS
+        Code:
+      </p>
+
+      <div class="shell shadow" id="zsh-open">
+        <div class="code">
+          <p>$</p>
+          <code>open ~/.zshrc</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <p>
+        Paste these lines at the bottom. Save the file. Restart your terminal.
+      </p>
+
+      <h3>Authenticating the Fly.io CLI</h3>
+      <p>
+        We'll need to log into Fly.io with the CLI. To do that, run the
+        following command:
+      </p>
+
+      <div class="shell shadow" id="login">
+        <div class="code">
+          <p>$</p>
+          <code>flyctl auth login</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <h2 id="fly-domain">Launch Your Server</h2>
+
+      <p>
+        Navigate to the root directory of the project that you want to deploy.
+        This should be where your <b>server.js</b> is located. Once there, run
+        the following command:
+      </p>
+
+      <div class="shell shadow" id="launch">
+        <div class="code">
+          <p>$</p>
+          <code>flyctl launch</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <p>
+        When prompted to adjust settings, type <b>Y</b> and the Fly.io
+        <a href="https://fly.io/dashboard">dashboard</a> should open up in your
+        browser. Adjust these settings as you like, particularly your app name.
+        The app name you choose will be in your Fly.io URL.
+      </p>
+
+      <div class="browser shadow">
+        <code> https://expressdeployment.fly.dev/ </code>
+      </div>
+
+      <h2 id="fly-env">Setting Up Environment Variables</h2>
+
+      <p>
+        Environment variables can be set up using the CLI by following this
+        format:
+      </p>
+
+      <div class="shell shadow" id="env">
+        <div class="code">
+          <p>$</p>
+          <code>flyctl secrets set VARIABLE=value</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <p>
+        You may find that it's much easier to set these up on the Fly.io
+        <a href="https://fly.io/dashboard">dashboard</a>.
+      </p>
+
+      <h2 id="fly-deploy">Deploy Your App</h2>
+
+      <p>
+        At this point, you're all ready to deploy your app. Run the following
+        command in the root directory of your project:
+      </p>
+
+      <div class="shell shadow" id="deploy">
+        <div class="code">
+          <p>$</p>
+          <code>flyctl deploy</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <h2>Recap</h2>
+      <p>
+        In this walkthrough, you successfully deployed your Node Express app to
+        Fly.io.
+      </p>
+
+      <p>
+        Any time you make changes to your project that you want reflected on
+        your deployed version, just commit your changes and then run
+        <b>flyctl deploy</b> once more.
+      </p>
+
+      <h2>Resources</h2>
+      <ul>
+        <li>
+          <a href="https://docs.render.com/" target="_blank">Render.com Docs</a>
+        </li>
+      </ul>
+      <br />
+      <center>
+        <div class="logos">
+          <a href="https://nodejs.org/" target="_blank" id="node">
+            <img src="./images/node.png" alt="node" />
+          </a>
+          <a href="https://expressjs.com/" target="_blank" id="express">
+            <img src="./images/express.png" alt="express" />
+          </a>
+          <a href="https://render.com/" target="_blank" id="render">
+            <img src="./images/render.png" alt="render" />
+          </a>
+        </div>
+      </center>
+    </main>
+  </body>
+</html>

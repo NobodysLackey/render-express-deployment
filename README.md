@@ -1,6 +1,6 @@
 # Express Deployment with Render
 
-![deploy](./images/readme-banner.png)
+![deploy](./public/images/readme-banner.png)
 
 [This lesson]() will walk you through the steps to deploy a [Node](https://nodejs.org/) [Express](https://expressjs.com/) app with [Render](https://render.com). We will walk through all of the necessary steps from start to finish.
 

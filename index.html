@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preload" href="./images/check.png" as="check" />
+    <link rel="preload" as="image" href="./images/check.png"  />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <script defer src="./script.js"></script>
     <link rel="stylesheet" href="./style.css" />
@@ -23,7 +23,7 @@
           This website will walk you through the steps to deploy a
           <a href="https://nodejs.org/" target="_blank">Node</a>
           <a href="https://expressjs.com/" target="_blank">Express</a> app with
-          <a href="https://render.com/" target="_blank">Render.com</a>. We will walk
+          <a href="https://render.com/" target="_blank">Render</a>. We will walk
           through all of the necessary steps from start to finish.
         </p>
 
@@ -33,50 +33,80 @@
       <h2>Objectives</h2>
       <ul>
         <li>
-          Learn how to do a one-time <a href="#fly-install">install</a> and
-          configuration of the Fly.io CLI on your machine
+          <a href="#sign-up">Sign Up</a> for a Render account and connect your GitHub account
         </li>
-        <li>Learn how to choose a <a href="#fly-domain">domain</a></li>
-        <li>Set up Fly.io <a href="#fly-env">environment</a> variables</li>
-        <li><a href="#fly-deploy">Deploy</a></li>
+        <li>Set up a new <a href="#web-service">Web Service</a> from the Render Dashboard</li>
+        <li>Adjust the <a href="#app-settings">App Settings</a> to properly build and deploy your app</li>
+        <li><a href="#deploy">Deploy</a></li>
       </ul>
 
-      <h2>Why deploy with Fly.io?</h2>
+      <h2>Why deploy with Render?</h2>
       <p>
-        Fly.io is one of the easiest to use deployment hosts out there. In
-        addition, it's one of the few that will allow you to deploy an Express
-        back-end server for free (we'll still need to provide a
-        <a href="https://fly.io/docs/about/pricing/">credit card</a>).
+        Render removes much of the difficulties of deployment by connecting directly to your GitHub repository. In addition, it's one of the few services that will allow you to deploy an Express back-end server for free.
       </p>
 
       <p>
-        The platform has been around since 2017 and is great for hosting full
-        stack apps. It takes less than 10 minutes to get an app up and deployed,
-        and it's extremely user friendly!
+        They brand themselves as "Your Fastest Path to Production". I think you'll find in this walkthrough that they deliver on that promise.
       </p>
 
-      <h2>Sign Up</h2>
+      <h2 id="sign-up">Sign Up</h2>
       <p>
-        <b><em>If you have never signed up with Fly.io before...</em></b>
+        <b><em>If you have never signed up with Render.com before...</em></b>
       </p>
       <p>
-        To start, you'll need to head over to Fly.io and
-        <a href="https://fly.io/app/sign-up">sign up</a> for an account. You
-        will be prompted to enter credit card information, but will not be
-        charged unless our website usage surpasses
-        <a href="https://fly.io/docs/about/pricing/#free-allowances"
-          >certain thresholds</a
-        >.
+        To start, you'll need to head over to Render.com and
+        <a href="https://dashboard.render.com/register">sign up</a> for an account. Feel free to sign up with your GitHub or Google account, or to make an account directly with Render.
       </p>
 
-      <h2 id="fly-install">Install the Fly.io CLI Tool</h2>
+      <h2 id="web-service">Create a New Web Service</h2>
 
-      <p>In any directory in your terminal, run the following command:</p>
+      <p>From the Render <a href="https://dashboard.render.com/">dashboard</a>, you'll see that there are several different types of apps that you can deploy.</p>
+
+      <p>Under Web Services, select <b>New Web Service</b>.</p>
+
+      <p>The next page will ask how you would like to deploy your web service. Select <b>Build and deploy from a Git repository</b> and click "Next".</p>
+
+      <p>If you have not connected your GitHub account, do so now. The next page will prompt you to connect one of your repositories. You may see your repo in the list, or you can search for it. Select the repo you want to deploy and click "Connect".</p>
+
+      <h2 id="app-settings">Adjust the App Settings</h2>
+
+      <p>
+        Render should automatically detect that your app is using Node, and will autofill some of the fields in this section for you.
+      </p>
+
+      <p>The only fields we will need to change are:</p>
+      <ul>
+        <li>Name (optional)</li>
+        <li>Build Command</li>
+        <li>Start Command</li>
+        <li>Instance Type</li>
+        <li>Environment Variables</li>
+      </ul>
+
+      <p>The rest can be left how Render autofilled them.</p>
+
+      <p>Whatever <b>Name</b> you select for your app will determine the URL that is generated, like this:</p>
+
+      <div class="browser shadow">
+        <code> <b>Name:</b> expressdeployment </code>
+      </div>
+
+      <p>Will produce...</p>
+
+      <div class="browser shadow">
+        <code> https://expressdeployment.onrender.com/ </code>
+      </div>
+
+      <br>
+
+      <p>
+        For the <b>Build Command</b>, put the following:
+      </p>
 
       <div class="shell shadow" id="install">
         <div class="code">
           <p>$</p>
-          <code>curl -L https://fly.io/install.sh | sh</code>
+          <code>npm install</code>
         </div>
         <div class="copy">
           <img src="./images/copy.png" alt="copy" />
@@ -84,146 +114,61 @@
       </div>
 
       <p>
-        After installing the CLI, you should see an output that recommends
-        adding two lines to your .zshrc file. They will look similar to this:
+        For the <b>Start Command</b>, you'll need to put the command that you run to start your Express server. Possibly:
       </p>
 
-      <div class="shell shadow" id="zsh">
+      <div class="shell shadow" id="run">
+        <div class="code">
+          <p>$</p>
+          <code>npm run dev</code>
+        </div>
+        <div class="copy">
+          <img src="./images/copy.png" alt="copy" />
+        </div>
+      </div>
+
+      <br>
+
+      <p>
+        For the <b>Instance Type</b>, make sure you select "Free". This will not require you to enter credit card information, and is great for simple hobby projects.
+      </p>
+
+      <p>
+        For the <b>Environment Variables</b>, you will need to add your Database URI and it's associated env variable. If you have any other environment variables that your app uses, be sure and add these here as well.
+      </p>
+
+      <p>Once you've filled out all of the required fields, click "Create Web Service".</p>
+
+      <h2 id="deploy">Deploy Your App</h2>
+
+      <p>
+        On the next page, Render will automatically begin deploying your app. You can view the log for errors, and once the build is complete, you should see:
+      </p>
+
+      <div class="shell shadow" id="success">
         <div class="code" id="env-block">
-          <code>export FLYCTL_INSTALL="/Users/&lt;your_username&gt;/.fly"</code>
-          <code>export PATH="$FLYCTL_INSTALL/bin:$PATH"</code>
-        </div>
-        <div class="copy">
-          <img src="./images/copy.png" alt="copy" />
+          <code> ==> Build Successful 🎉 </code>
         </div>
       </div>
 
       <p>
-        Copy these lines and be sure to replace
-        <b>&lt;your_username&gt;</b> with your actual Fly.io
-        <a href="https://fly.io/user/settings">username</a>.
+        Your app is deployed!
       </p>
-
-      <p>
-        We'll need to paste these two commands at the bottom of our
-        <b>zsh</b> settings file. Run the following command to open it up in VS
-        Code:
-      </p>
-
-      <div class="shell shadow" id="zsh-open">
-        <div class="code">
-          <p>$</p>
-          <code>open ~/.zshrc</code>
-        </div>
-        <div class="copy">
-          <img src="./images/copy.png" alt="copy" />
-        </div>
-      </div>
-
-      <p>
-        Paste these lines at the bottom. Save the file. Restart your terminal.
-      </p>
-
-      <h3>Authenticating the Fly.io CLI</h3>
-      <p>
-        We'll need to log into Fly.io with the CLI. To do that, run the
-        following command:
-      </p>
-
-      <div class="shell shadow" id="login">
-        <div class="code">
-          <p>$</p>
-          <code>flyctl auth login</code>
-        </div>
-        <div class="copy">
-          <img src="./images/copy.png" alt="copy" />
-        </div>
-      </div>
-
-      <h2 id="fly-domain">Launch Your Server</h2>
-
-      <p>
-        Navigate to the root directory of the project that you want to deploy.
-        This should be where your <b>server.js</b> is located. Once there, run
-        the following command:
-      </p>
-
-      <div class="shell shadow" id="launch">
-        <div class="code">
-          <p>$</p>
-          <code>flyctl launch</code>
-        </div>
-        <div class="copy">
-          <img src="./images/copy.png" alt="copy" />
-        </div>
-      </div>
-
-      <p>
-        When prompted to adjust settings, type <b>Y</b> and the Fly.io
-        <a href="https://fly.io/dashboard">dashboard</a> should open up in your
-        browser. Adjust these settings as you like, particularly your app name.
-        The app name you choose will be in your Fly.io URL.
-      </p>
-
-      <div class="browser shadow">
-        <code> https://expressdeployment.fly.dev/ </code>
-      </div>
-
-      <h2 id="fly-env">Setting Up Environment Variables</h2>
-
-      <p>
-        Environment variables can be set up using the CLI by following this
-        format:
-      </p>
-
-      <div class="shell shadow" id="env">
-        <div class="code">
-          <p>$</p>
-          <code>flyctl secrets set VARIABLE=value</code>
-        </div>
-        <div class="copy">
-          <img src="./images/copy.png" alt="copy" />
-        </div>
-      </div>
-
-      <p>
-        You may find that it's much easier to set these up on the Fly.io
-        <a href="https://fly.io/dashboard">dashboard</a>.
-      </p>
-
-      <h2 id="fly-deploy">Deploy Your App</h2>
-
-      <p>
-        At this point, you're all ready to deploy your app. Run the following
-        command in the root directory of your project:
-      </p>
-
-      <div class="shell shadow" id="deploy">
-        <div class="code">
-          <p>$</p>
-          <code>flyctl deploy</code>
-        </div>
-        <div class="copy">
-          <img src="./images/copy.png" alt="copy" />
-        </div>
-      </div>
 
       <h2>Recap</h2>
       <p>
         In this walkthrough, you successfully deployed your Node Express app to
-        Fly.io.
+        Render.
       </p>
 
       <p>
-        Any time you make changes to your project that you want reflected on
-        your deployed version, just commit your changes and then run
-        <b>flyctl deploy</b> once more.
+        Any time you make changes to your project that you want reflected on your deployed version, just commit your changes and push up to your <b>main</b> branch. Render will automatically re-deploy the app!
       </p>
 
       <h2>Resources</h2>
       <ul>
         <li>
-          <a href="https://docs.render.com/" target="_blank">Render.com Docs</a>
+          <a href="https://docs.render.com/" target="_blank">Render Docs</a>
         </li>
       </ul>
       <br />

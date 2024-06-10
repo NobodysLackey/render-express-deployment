@@ -48,9 +48,15 @@ The only fields we will need to change are:
 - Instance Type
 - Environment Variables
 
-The rest can be left as is.
+The rest can be left how Render autofilled them.
 
-Whatever **Name** you select for your app will determine the URL generated, like this:
+Whatever **Name** you select for your app will determine the URL that is generated, like this:
+
+```sh
+Name: expressdeployment
+```
+
+Will produce...
 
 ```sh
 https://expressdeployment.onrender.com
@@ -78,7 +84,7 @@ Once you've filled out all of the required fields, click "Create Web Service".
 
 On the next page, Render will automatically begin deploying your app. You can view the log for errors, and once the build is complete, you should see:
 
-```
+```sh
 ==> Build Successful 🎉
 ```
 
@@ -92,4 +98,4 @@ Any time you make changes to your project that you want reflected on your deploy
 
 ## Resources
 
-- [Render.com Docs](https://docs.render.com/)
+- [Render Docs](https://docs.render.com/)

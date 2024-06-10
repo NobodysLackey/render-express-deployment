@@ -1,11 +1,6 @@
 let elements = [
   'install',
-  'zsh',
-  'zsh-open',
-  'login',
-  'launch',
-  'env',
-  'deploy'
+  'run'
 ]
 let copied = false
 let out = true
@@ -19,16 +14,7 @@ const copy = (element) => {
   let boxHidden = shell.querySelector('.copy')
   let boxImg = shell.querySelector('img')
 
-  if (
-    shell.querySelector('code').innerText ===
-    'export FLYCTL_INSTALL="/Users/<your_username>/.fly"'
-  ) {
-    navigator.clipboard.writeText(
-      'export FLYCTL_INSTALL="/Users/<your_username>/.fly"\nexport PATH="$FLYCTL_INSTALL/bin:$PATH"'
-    )
-  } else {
-    navigator.clipboard.writeText(shell.querySelector('code').innerText)
-  }
+  navigator.clipboard.writeText(shell.querySelector('code').innerText)
 
   copied = true
 

@@ -82,10 +82,10 @@ Once you've filled out all of the required fields, click "Create Web Service".
 
 ## Deploy Your App
 
-On the next page, Render will automatically begin deploying your app. You can view the log for errors, and once the build is complete, you should see:
+On the next page, Render will automatically begin deploying your app. You can view the log for errors, and once the deployment is complete, you should see:
 
 ```sh
-==> Build Successful 🎉
+==> Your site is live 🎉
 ```
 
 Your app is deployed!

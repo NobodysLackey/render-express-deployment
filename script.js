@@ -1,7 +1,4 @@
-let elements = [
-  'install',
-  'run'
-]
+let elements = ['install', 'run']
 let copied = false
 let out = true
 
@@ -18,14 +15,14 @@ const copy = (element) => {
 
   copied = true
 
-  boxImg.setAttribute('src', './images/check.png')
+  boxImg.setAttribute('src', './public/images/check.png')
 
   setTimeout(() => {
     copied = false
     if (out) {
       boxHidden.style.opacity = 0
     }
-    boxImg.setAttribute('src', './images/copy.png')
+    boxImg.setAttribute('src', './public/images/copy.png')
   }, 2000)
 }
 

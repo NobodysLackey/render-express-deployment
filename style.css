@@ -1,7 +1,15 @@
+:root {
+  --main: #3a3a3a;
+  --hover: #656565;
+  --highlight: #8a06ff;
+  --highlight-two: #f13aff;
+  --background: #e6e6e6;
+}
+
 body {
   margin: 0;
   background-color: #e6e6e6;
-  color: #564740;
+  color: var(--main);
   font-family: Georgia, 'Times New Roman', Times, serif;
   width: 98vw;
 
@@ -11,21 +19,6 @@ body {
   align-items: center;
 }
 
-kbd {
-  background-color: #fbf3ed;
-  padding: 4px;
-  border: 1px solid #564740;
-  border-radius: 3px;
-  color: #564740;
-  font-weight: bold;
-}
-
-kbd:hover {
-  background-color: #564740;
-  color: #fbf3ed;
-  cursor: default;
-}
-
 main {
   width: 95vw;
   margin: 2vh 2vw;
@@ -33,11 +26,11 @@ main {
 
 a {
   text-decoration: none;
-  color: #8a06ff;
+  color: var(--highlight);
 }
 
 a:hover {
-  color: #f13aff;
+  color: var(--highlight-two);
 }
 
 h2 {
@@ -45,7 +38,7 @@ h2 {
 }
 
 hr {
-  border: 2px solid #564740;
+  border: 2px solid var(--main);
 }
 
 .shadow {
@@ -58,7 +51,7 @@ hr {
   width: 350px;
   max-width: 90vw;
   height: 50px;
-  background-color: #564740;
+  background-color: var(--main);
   color: #f7e3d6;
   border: 2px solid #f7e3d6;
   border-radius: 5px;
@@ -71,7 +64,7 @@ hr {
 .copy {
   min-height: 25px;
   min-width: 25px;
-  border: 1px solid #80736b;
+  border: 1px solid var(--hover);
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -110,7 +103,7 @@ hr {
   display: inline;
   font-family: monospace;
   margin-right: 4px;
-  color: #f13aff;
+  color: var(--highlight-two);
   cursor: default;
 }
 
@@ -118,8 +111,8 @@ hr {
   width: max-content;
   height: 30px;
   background-color: #e6e6e6;
-  color: #564740;
-  border: 2px solid #564740;
+  color: var(--main);
+  border: 2px solid var(--main);
   border-radius: 5px;
   padding: 10px;
   display: flex;
@@ -129,7 +122,7 @@ hr {
 }
 
 .image {
-  border: 2px solid #564740;
+  border: 2px solid var(--main);
   border-radius: 5px;
   max-width: 90vw;
 }
@@ -141,8 +134,8 @@ hr {
 
 .gif {
   width: 600px;
-  border: 2px solid #f13aff;
-  background-color: black;
+  border: 2px solid var(--highlight-two);
+  background-color: #000000;
   padding: 5px;
 }
 

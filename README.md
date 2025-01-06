@@ -99,3 +99,4 @@ Any time you make changes to your project that you want reflected on your deploy
 ## Resources
 
 - [Render Docs](https://docs.render.com/)
+- [Deploy It!](https://deployit.surge.sh/)
